@@ -41,7 +41,7 @@ namespace ProductionSimulation.Models
 
                 entity.Property(e => e.EndDate)
                     .HasColumnName("endDate")
-                    .HasColumnType("date");
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.PcbId).HasColumnName("pcb_id");
 
@@ -49,7 +49,7 @@ namespace ProductionSimulation.Models
 
                 entity.Property(e => e.StartDate)
                     .HasColumnName("startDate")
-                    .HasColumnType("date");
+                    .HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Products>(entity =>

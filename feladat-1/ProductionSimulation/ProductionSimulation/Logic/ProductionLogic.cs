@@ -13,6 +13,7 @@ namespace ProductionSimulation.Logic
         public List<Products> ProductsList { get; set; }
         private cs_beugroContext _ctx;
         private List<Production> ProductionList;
+        private List<Production> tmpProductionList;
 
         public ProductionLogic(cs_beugroContext ctx)
         {
@@ -31,7 +32,7 @@ namespace ProductionSimulation.Logic
             List<int> selectedProducts = new List<int>();
             for (int i = 0; i < 10; i++)
             {
-                int rnd = RandomGenerator.GetProductsRnd.Next(1, ProductsList.Count());
+                int rnd = RandomGenerator.rnd.Next(1, ProductsList.Count());
                 int selectedProductId = ProductsList.First(x => x.Id == rnd).Id;
                 selectedProducts.Add(selectedProductId);
             }
@@ -44,12 +45,21 @@ namespace ProductionSimulation.Logic
             List<Production> production = new List<Production>();
             for (int i = 0; i < selectedProducts.Count(); i++)
             {
+                DateTime tmpStartDate = DateTime.Now.AddMinutes((double)(-1 * (RandomGenerator.rnd.Next(10, 20))));
+                DateTime tmpEndDate = DateTime.Now.AddMinutes((double)(-1 * (RandomGenerator.rnd.Next(1, 15))));
+                
+                while(tmpStartDate >= tmpEndDate)
+                {
+                     tmpStartDate = DateTime.Now.AddMinutes((double)(-1 * (RandomGenerator.rnd.Next(10, 20))));
+                     tmpEndDate = DateTime.Now.AddMinutes((double)(-1 * (RandomGenerator.rnd.Next(1, 15))));
+                }
+
                 production.Add(new Production()
                 {
                     PcbId = selectedProducts[i],
-                    Quantity = RandomGenerator.ProductionRnd.Next(1, 1001),
-                    StartDate = DateTime.Now.AddMinutes((double)(-1 * (RandomGenerator.StartDateRnd.Next(10, 20)))),
-                    EndDate = DateTime.Now.AddMinutes((double)(-1 * (RandomGenerator.EndDateRnd.Next(1, 15))))
+                    Quantity = RandomGenerator.rnd.Next(1, 1001),
+                    StartDate = tmpStartDate,
+                    EndDate = tmpEndDate
                 });
             }
             this.ProductionList = production;
@@ -58,7 +68,7 @@ namespace ProductionSimulation.Logic
         public void WriteOutSimulations()
         {
             StreamWriter sw = new StreamWriter("puffer.txt", false);
-            sw.WriteLine("pcb_id|quantity|startDate|endDate");
+            sw.WriteLine("(pcb_id|quantity|startDate|endDate)");
             foreach (Production item in ProductionList)
             {
                 sw.WriteLine($"{item.PcbId}|{item.Quantity}|{item.StartDate}|{item.EndDate}");
@@ -66,7 +76,7 @@ namespace ProductionSimulation.Logic
             sw.Close();
         }
 
-        private List<Production> ReadSimulations()
+        private void ReadSimulations()
         {
             List<Production> tmpProduction = new List<Production>();
             StreamReader sr = new StreamReader("puffer.txt");
@@ -78,26 +88,27 @@ namespace ProductionSimulation.Logic
                 {
                     PcbId = int.Parse(line[0]),
                     Quantity = int.Parse(line[1]),
-                    StartDate = DateTime.Parse(line[2]),
-                    EndDate = DateTime.Parse(line[3])
+                    StartDate = Convert.ToDateTime(line[2]),
+                    EndDate = Convert.ToDateTime(line[3])
                 });
             }
             sr.Close();
-            Production ProductionToBeDelted = tmpProduction.FirstOrDefault(x => x.Id == 4);
+            Production ProductionToBeDelted = tmpProduction.FirstOrDefault(x => x.PcbId == 4);
 
-            if (!(ProductionToBeDelted is null))
+            if (ProductionToBeDelted != null)
             {
                 tmpProduction.Remove(ProductionToBeDelted);
             }
             tmpProduction.Remove(tmpProduction.GetRange(3,1).First());
 
-            return tmpProduction;
+            tmpProductionList = tmpProduction;
         }
 
         public void SaveProdcution()
         {
             this.WriteOutSimulations();
-            this.ReadSimulations().ForEach(x => _ctx.Production.Add(x));
+            this.ReadSimulations();
+            this.tmpProductionList.ForEach(x => _ctx.Production.Add(x));
             _ctx.SaveChanges();
         }
     }
