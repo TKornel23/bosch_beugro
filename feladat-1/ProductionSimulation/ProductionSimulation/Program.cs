@@ -14,6 +14,7 @@ namespace ProductionSimulation
         {
             cs_beugroContext ctx = new cs_beugroContext();
             ProductionLogic pl = new ProductionLogic(ctx);
+            pl.SaveProdcution();
         }
     }
 }
