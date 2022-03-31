@@ -8,6 +8,9 @@ namespace ProductionSimulation.Logic
 {
     static class RandomGenerator
     {
-        static Random rnd = new Random();
+        public static Random GetProductsRnd = new Random();
+        public static Random ProductionRnd = new Random();
+        public static Random StartDateRnd = new Random();
+        public static Random EndDateRnd = new Random();
     }
 }
