@@ -3,19 +3,19 @@
 
 <div class='container' style='margin-top: 10px'>
     <div id='productions'>
-        <label for="pdc_id">Select pcb_id</label>
+        <label for="pdc_id">Select pcb</label>
         <select name="pcb_id" id="pcb_id">
-            <option value="">--- Choose a pcb_id ---</option>
+            <option value="">--- Choose pcb ---</option>
             <?php
-                $conn = mysqli_connect('localhost','root','asd123','cs_beugro',3306);
-                $query = 'SELECT * FROM production';
-                $result = $conn->query($query);
-
-                while($row = $result->fetch_assoc()): ?>
-                <option value="<?php echo $row['pcb_id'] ?>"> <?php echo $row['pcb_id'] ?> </option>
+                foreach($Productionrows as $itemP){
+                foreach($Productsrows as $item) {  
+                    if($itemP['pcb_id'] == $item['id']){                    
+                    ?>
+                <option value="<?php echo $item['pcb'] ?>"> <?php echo $item['pcb'] ?> </option>
                 <?php 
-                endwhile;
-                mysqli_close($conn); 
+                    }
+                }
+            }
                 ?>
         </select>
         <table class='table'>
@@ -25,27 +25,22 @@
                     <th>Quantity</th>
                     <th>StartDate</th>
                     <th>EndDate</th>
-                <thead>
-                <tbody>
-                <?php
-                $conn = mysqli_connect('localhost','root','asd123','cs_beugro',3306);
-                $query = 'SELECT * FROM production';
-                $result = $conn->query($query);
-
-                while($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td> <?php echo $row['id']; ?> </td>
-                        <td> <?php echo $row['pcb_id'];  ?> </td>
-                        <td> <?php echo $row['quantity']; ?> </td>
-                        <td> <?php echo $row['startDate']; ?> </td>
-                        <td> <?php echo $row['endDate']; ?> </td>
-                    </tr>
-                <?php 
-                endwhile;
-                mysqli_close($conn); 
-                ?>
-                </tbody>
-        </table>
+                    <th>Action</th>
+            <thead>
+            <tbody>
+            <?php  
+            foreach($Productionrows as $item) { ?>
+                <tr>
+                    <td> <?php echo $item['id']; ?> </td>
+                    <td> <?php echo $item['pcb_id'];  ?> </td>
+                    <td> <?php echo $item['quantity']; ?> </td>
+                    <td> <?php echo $item['startDate']; ?> </td>
+                    <td> <?php echo $item['endDate']; ?> </td>
+                    <td><a href="delete/{{ $item['id'] }}"><button type="button" class="btn btn-danger">Delete</button></td>
+                </tr>
+                <?php } ?>
+            </tbody
+         </table>
     </div>
 </div>
 @endsection
