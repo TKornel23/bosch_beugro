@@ -5,7 +5,6 @@
     <div id='productions'>
         <label for="pdc_id">Select pcb</label>
         <select name="pcb_id_select" id="selector">
-            <from method="POST">
             <option value="">--- Choose a pcb ---</option>
             <?php
                 foreach($Productionrows as $itemP){
@@ -19,9 +18,7 @@
         }?>
         
         </select>
-        <input type="submit" name="submit">
-    </form>
-        <table class='table'>
+        <table class='table' id="table">
             <thead>
                     <th>ID</th>
                     <th>Pcb_Id</th>
@@ -46,4 +43,22 @@
            </table>
     </div>
 </div>
+
+<script>
+    $('#selector').change(function(){
+   var selectedId = $('#selector :selected').val();
+   var table = document.getElementById("table");
+   var all_tr = table.getElementsByTagName("tr");
+
+   for(var i = 0; i < all_tr.length;i++){
+       if(all_tr[i].getElementsByTagName("td")[1] == selectedId){
+        all_tr[i].style.display = "";
+       }
+       else {
+        all_tr[i].style.display = "none";
+       }
+   }
+});
+</script>
+
 @endsection
