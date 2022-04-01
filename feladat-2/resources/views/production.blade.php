@@ -46,23 +46,23 @@
 
 <script>
    $('#selector').change(function(){
-    var selectedId = $('#selector option:selected').val();
-    console.log(selectedId);
+    var selectedId = $('#selector option:selected');
 
-   var table = document.getElementById("table");
+    if(selectedId.text != '--- Choose a pcb ---'){
+        var table = document.getElementById("table");
         var all_tr = table.getElementsByTagName("tr");
         for(var i=0; i<all_tr.length; i++){
             var name_column = all_tr[i].getElementsByTagName("td")[1];
             if(name_column){
                 var name_value = name_column.textContent || name_column.innerText;
-                if(name_value.indexOf(selectedId) > -1){
+                if(name_value.indexOf(selectedId.val()) > -1){
                     all_tr[i].style.display = "";
                 }else{
                     all_tr[i].style.display = "none";
                 }
             }
         }
-
+    }
 });
 </script>
 @endsection
