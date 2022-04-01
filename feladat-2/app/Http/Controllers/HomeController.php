@@ -44,28 +44,4 @@ class HomeController extends Controller
         $conn->query($query);
         return redirect('production');
     }
-
-    public function filter($pcb)
-    {
-        $conn = mysqli_connect('localhost','root','asd123','cs_beugro',3306);
-        $queryProduction = "SELECT * FROM production";
-        $queryProducts = "SELECT * FROM products";
-        $Productionrows = $conn->query($queryProduction);
-        $Productrows = $conn->query($queryProducts);
-
-        $selected = null;
-
-        foreach($Productrows as $item){
-            if($item['pcb'] == $pcb){
-                $selected = $item;
-            }
-        }
-        $filtered = null;
-        foreach($Productionrows as $item){
-            if($item['pcb_id'] == $selected['id']){
-                $filtered = $item;
-            }
-        }
-        return view('production',['Productionrows'=>$filtered, 'Productsrows'=>$Productrows]);
-    }
 }
