@@ -11,7 +11,7 @@
                 foreach($Productsrows as $item) {  
                     if($itemP['pcb_id'] == $item['id']){                    
                     ?>
-                    <option value="<?php $itemP['pcb_id'] ?>"><?php echo $item['pcb'] ?></option>                
+                    <option value="<?php  $item['id'] ?>"><?php echo $item['pcb'] ?> - <?php  echo $itemP['pcb_id'] ?></option>                
                 <?php 
                 }
             }
@@ -30,7 +30,7 @@
             <tbody>
            <?php foreach($Productionrows as $item) { ?>
                 <tr>
-                    <td id="itemid"> <?php echo $item['id']; ?> </td>
+                    <td> <?php echo $item['id']; ?> </td>
                     <td> <?php echo $item['pcb_id'];  ?> </td>
                     <td> <?php echo $item['quantity']; ?> </td>
                     <td> <?php echo $item['startDate']; ?> </td>
@@ -45,19 +45,35 @@
 </div>
 
 <script>
-    $('#selector').change(function(){
-   var selectedId = $('#selector :selected').val();
-   var table = document.getElementById("table");
-   var all_tr = table.getElementsByTagName("tr");
+   $('#selector').change(function(){
+    var selectedId = $('#selector option:selected').text();
+    console.log(selectedId.substr(9));
+//    var table = document.getElementById("table");
+//    var all_tr = table.getElementsByTagName("tr");
 
-   for(var i = 0; i < all_tr.length;i++){
-       if(all_tr[i].getElementsByTagName("td")[1] == selectedId){
-        all_tr[i].style.display = "";
-       }
-       else {
-        all_tr[i].style.display = "none";
-       }
-   }
+//    for(var i = 0; i < all_tr.length;i++){
+//        if(all_tr[i].getElementsByTagName("td")[1] == '37'){
+//         all_tr[i].style.display = "inline";
+//        }
+//        else {
+//         all_tr[i].style.display = "none";
+//        }
+//    }
+
+   var table = document.getElementById("table");
+        var all_tr = table.getElementsByTagName("tr");
+        for(var i=0; i<all_tr.length; i++){
+            var name_column = all_tr[i].getElementsByTagName("td")[1];
+            if(name_column){
+                var name_value = name_column.textContent || name_column.innerText;
+                if(name_value.indexOf(selectedId.substr(9)) > -1){
+                    all_tr[i].style.display = "";
+                }else{
+                    all_tr[i].style.display = "none";
+                }
+            }
+        }
+
 });
 </script>
 
