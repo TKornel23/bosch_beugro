@@ -36,7 +36,7 @@
                     <td> <?php echo $item['quantity']; ?> </td>
                     <td> <?php echo $item['startDate']; ?> </td>
                     <td> <?php echo $item['endDate']; ?> </td>
-                    <td><a href="delete/{{ $item['id'] }}"><button type="button" class="btn btn-danger">Delete</button></td>
+                    <td><a href='delete/{{$item["id"]}}'><button type="button" class="btn btn-danger">Delete</button></a></td>
                 </tr>
                 <?php } ?>
             </tbody
