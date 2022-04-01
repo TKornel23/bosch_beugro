@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
 
-<div >
-    <p>Kornél Tóth</p>
-    <p>tkornel23@gmail.com</p>
+<div class="text-center">
+    <p class="h1">Kornél Tóth</p>
+    <p class="h2">tkornel23@gmail.com</p>
 </div>
 
 @endsection
