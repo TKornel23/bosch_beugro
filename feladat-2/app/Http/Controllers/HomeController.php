@@ -1,10 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use model;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\MySQLi;
 
 class HomeController extends Controller
 {
@@ -24,6 +22,6 @@ class HomeController extends Controller
      */
     public function production()
     {
-        //$connection = new mysqli("localhost","root","asd123");
+        return view('production');
     }
 }

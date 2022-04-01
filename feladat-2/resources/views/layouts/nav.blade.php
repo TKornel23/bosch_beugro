@@ -10,6 +10,6 @@
     </div>
   </div>
   <span class="navbar-text">
-      Write your name here
+      Kornél Tóth
     </span>
 </nav>
