@@ -1,14 +1,15 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="card" id="card" style="width: 18rem;">
+<div class="d-flex align-items-center justify-content-center">
+<div class="card" id="card" style="width: 18rem;margin-top: 9rem;">
   <div class="card-body">
     <p class="card-text" id="text">asfkyvmxoicvjxoicbv54515</p>
     <button id="button">Change password to *</button>
   </div>
 </div>
+</div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
 
     $('#text').on('click',function(){

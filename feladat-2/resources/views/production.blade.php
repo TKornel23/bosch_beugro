@@ -4,8 +4,8 @@
 <div class='container' style='margin-top: 10px'>
     <div id='productions'>
         <label for="pdc_id">Select pcb</label>
-        <select name="pcb_id" id="pcb_id">
-            <option value="">--- Choose pcb ---</option>
+        <select name="pcb_id" id="selector">
+            <option value="">--- Choose a pcb ---</option>
             <?php
                 foreach($Productionrows as $itemP){
                 foreach($Productsrows as $item) {  
@@ -31,7 +31,7 @@
             <?php  
             foreach($Productionrows as $item) { ?>
                 <tr>
-                    <td> <?php echo $item['id']; ?> </td>
+                    <td id="itemid"> <?php echo $item['id']; ?> </td>
                     <td> <?php echo $item['pcb_id'];  ?> </td>
                     <td> <?php echo $item['quantity']; ?> </td>
                     <td> <?php echo $item['startDate']; ?> </td>
@@ -43,4 +43,18 @@
          </table>
     </div>
 </div>
+
+<script>
+    var str = "";
+    $('#selector').change(function(){
+        $('select option:selected').each(function(){
+            str += $(this).text();
+        })
+    })
+    var product;
+    
+
+    $('tr').filter(":contains('"+22 + "')").show();
+
+</script>
 @endsection

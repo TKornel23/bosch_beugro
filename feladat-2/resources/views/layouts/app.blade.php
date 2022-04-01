@@ -10,6 +10,7 @@
         <title>Beugro</title>
     </head>
     <body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <div id="app">
         @include('layouts.nav')
             <main class="py-4 main">
