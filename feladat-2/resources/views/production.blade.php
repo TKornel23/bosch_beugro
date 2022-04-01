@@ -11,7 +11,7 @@
                 foreach($Productsrows as $item) {  
                     if($itemP['pcb_id'] == $item['id']){                    
                     ?>
-                    <option value="<?php  $item['id'] ?>"><?php echo $item['pcb'] ?> - <?php  echo $itemP['pcb_id'] ?></option>                
+                    <option value="<?php echo $item['id']; ?>"><?php echo $item['pcb']; ?></option>                
                 <?php 
                 }
             }
@@ -46,8 +46,8 @@
 
 <script>
    $('#selector').change(function(){
-    var selectedId = $('#selector option:selected').text();
-    console.log(selectedId.substr(9));
+    var selectedId = $('#selector option:selected').val();
+    console.log(selectedId);
 
    var table = document.getElementById("table");
         var all_tr = table.getElementsByTagName("tr");
@@ -55,7 +55,7 @@
             var name_column = all_tr[i].getElementsByTagName("td")[1];
             if(name_column){
                 var name_value = name_column.textContent || name_column.innerText;
-                if(name_value.indexOf(selectedId.substr(9)) > -1){
+                if(name_value.indexOf(selectedId) > -1){
                     all_tr[i].style.display = "";
                 }else{
                     all_tr[i].style.display = "none";
