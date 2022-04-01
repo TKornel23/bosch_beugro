@@ -48,17 +48,6 @@
    $('#selector').change(function(){
     var selectedId = $('#selector option:selected').text();
     console.log(selectedId.substr(9));
-//    var table = document.getElementById("table");
-//    var all_tr = table.getElementsByTagName("tr");
-
-//    for(var i = 0; i < all_tr.length;i++){
-//        if(all_tr[i].getElementsByTagName("td")[1] == '37'){
-//         all_tr[i].style.display = "inline";
-//        }
-//        else {
-//         all_tr[i].style.display = "none";
-//        }
-//    }
 
    var table = document.getElementById("table");
         var all_tr = table.getElementsByTagName("tr");
