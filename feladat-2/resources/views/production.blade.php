@@ -3,8 +3,9 @@
 
 <div class='container' style='margin-top: 10px'>
     <div id='productions'>
-        <label for="pdc_id">Select pcb</label>
-        <select name="pcb_id_select" id="selector">
+        <div class="d-flex justify-content-between border border-grey text-secondary">
+        <label style="margin: 5px;padding:5px">SELECT A PCB</label>
+        <select id="selector" style="margin: 5px;padding:5px">
             <option value="">--- Choose a pcb ---</option>
             <?php
                 foreach($Productionrows as $itemP){
@@ -18,6 +19,7 @@
         }?>
         
         </select>
+        </div>
         <table class='table' id="table">
             <thead>
                     <th>ID</th>
@@ -55,7 +57,7 @@
             var name_column = all_tr[i].getElementsByTagName("td")[1];
             if(name_column){
                 var name_value = name_column.textContent || name_column.innerText;
-                if(name_value.indexOf(selectedId.val()) > -1){
+                if(name_value.match(selectedId.val())){
                     all_tr[i].style.display = "";
                 }else{
                     all_tr[i].style.display = "none";
